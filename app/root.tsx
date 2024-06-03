@@ -1,37 +1,42 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
-import styles from "~/styles/App.css";
+    Links,
+    Meta,
+    Outlet,
+    Scripts,
+    ScrollRestoration
+} from '@remix-run/react';
+import type { LinksFunction, MetaFunction } from '@remix-run/node';
+import styles from '~/styles/App.css?url';
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: styles }];
+    return [{ rel : 'stylesheet', href : styles }];
 };
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Bryntum Gantt using Remix",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta: MetaFunction = () => {
+    return [
+        { title : 'Bryntum Gantt using Remix' },
+        { name : 'description', content : 'Bryntum Gantt using Remix' }
+    ];
+};
+
+export function Layout({ children }: { children: React.ReactNode }) {
+    return (
+        <html lang="en">
+            <head>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <Meta />
+                <Links />
+            </head>
+            <body>
+                {children}
+                <ScrollRestoration />
+                <Scripts />
+            </body>
+        </html>
+    );
+}
 
 export default function App() {
-  return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
-      </body>
-    </html>
-  );
+    return <Outlet />;
 }

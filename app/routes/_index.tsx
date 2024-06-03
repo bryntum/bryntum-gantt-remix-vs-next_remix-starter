@@ -1,3 +1,3 @@
 export default function Index() {
-  return <div>Index route</div>;
+    return <div>Index route</div>;
 }
